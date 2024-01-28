@@ -1,21 +1,17 @@
-* {
-    box-sizing: border-box;
-    padding: 0;
-}
-
 .fixed-width {
     width: 300px;
 }
 
-/* Ensure the list items also follow this width */
 .fixed-width .list-group-item {
     width: 100%;
     background-color: lightgray;
+    margin: 5px;
+    text-align: center;
 }
 
 .my-separator {
     border: none;
-    height: 5px; /* Adjust the height to match the separator thickness you desire */
-    background-color: black; /* Adjust the color to match your design */
-    margin: 20px 0; /* Adjust margin to give some space around the separator */
+    height: 5px; 
+    background-color: black; 
+    margin: 20px 0; 
 }

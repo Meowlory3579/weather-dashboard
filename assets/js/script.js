@@ -1,34 +1,56 @@
-var form = $('#search-form');
-var cityInput = $('#city-search');
-var cityList = $('#city-list');
+// jQuery ready function to ensure the code runs after the DOM has fully loaded
+$(document).ready(() => {
 
-// var formEl = $('#skills-form') = var form = $('#search-form');
-// var nameInputEl = $('#skill-name') = var cityInput = $('#city-search');
-// var dateInputEl = $('#datepicker');
-// var skillsListEl = $('#skills-list') = var cityList = $('#city-list');
+    var cityInput = $('#city-search');
+    var cityList = $('#city-list');
+
+    // Get any search input that was saved in localStorage...
+    var allItems = JSON.parse(localStorage.getItem('allItems'));
+
+    // If search input exists, create a li for each searched item
+    if (allItems !== null) {
+        allItems.forEach(function(item) {
+            var listEl = $('<li>');
+            listEl.appendTo(cityList);
+            var listDetail = item.city;
+            listEl.addClass('list-group-item').text(listDetail);
+        }); 
+    };
 
 
-var printSkills = function (name) {
-    var listEl = $('<li>');
-    listEl.appendTo(cityList);
-    var listDetail = name;
-    listEl.addClass('list-group-item').text(listDetail);
-};
-  
-var handleFormSubmit = function (event) {
-    event.preventDefault();
-  
-    var nameInput = cityInput.val();
-  
-    if (!nameInput) {
-      console.log('You need to fill out the form!');
-      return;
-    }
-  
-    printSkills(nameInput);
-  
-    // resets form
-    cityInput.val('');
-};
-  
-form.on('submit', handleFormSubmit);
+    // Add a listener for click events on the search button that getsAPI and saves search history to localStorage
+    $('#fetch-button').on('click', function() {
+        var cityValue = cityInput.val().trim();
+
+        // Store the city value in an object, if it's not empty
+        if (cityValue !== '') {
+
+            var newCityItem = {
+                city: cityValue
+            };
+        
+            // Retrieve allItems array from localstorage, if exists. If not, set allItems to empty
+            var allItems = localStorage.getItem('allItems');
+
+            if (allItems === null) {
+              allItems = [];
+            } else {
+                allItems = JSON.parse(allItems);
+            }
+
+            // Push new events into the allItems array
+            allItems.push(newCityItem);
+
+            // Store allItems in localStorage
+            var setStoredItems = localStorage.setItem('allItems', JSON.stringify(allItems));
+
+        }
+
+        // clear search field after each search
+        cityInput.val('');
+
+    }); // fetch-button listener end
+
+
+
+}); // Document ready end
