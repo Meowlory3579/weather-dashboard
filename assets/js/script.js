@@ -1,7 +1,7 @@
 // jQuery ready function to ensure the code runs after the DOM has fully loaded
 $(document).ready(() => {
 
-    var cityInput = $('#city-search');
+
     var cityList = $('#city-list');
 
     // Get any search input that was saved in localStorage...
@@ -20,6 +20,7 @@ $(document).ready(() => {
 
     // Add a listener for click events on the search button that getsAPI and saves search history to localStorage
     $('#fetch-button').on('click', function() {
+        var cityInput = $('#city-search');
         var cityValue = cityInput.val().trim();
 
         // Store the city value in an object, if it's not empty
@@ -62,7 +63,7 @@ $(document).ready(() => {
         console.log(cityName);
         var apiKey = '24c8e33d23ee0bf6a42fdd1ea9aa5f78';
         var urlCurrent = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + apiKey;
-        var urlFiveDay = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&appid=" + apiKey;
+        var urlFiveDay = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&appid=" + apiKey + "&units=imperial";
 
       
         fetch(urlCurrent)
