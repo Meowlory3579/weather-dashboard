@@ -12,7 +12,7 @@
     <link 
         rel="stylesheet" href="./assets/css/style.css" 
     />
-    <title>Weather Dashbord</title>
+    <title>Weather Dashboard</title>
 </head>
 <body>
 
@@ -30,17 +30,17 @@
 
             <!-- Div for col-4 -->
             <div class="col-4">
-                <!-- Form for input and search button -->
-                <form id="search-form">
-                <div class="py-3">
-                    <label for="city-search" class="mb-2">Search for a City:</label>
-                    <input type="text" for="city-search" class="form-control fixed-width" id="city-search" placeholder="San Diego">
+                <!-- Div for input and search button -->
+                <div id="search-form">
+                    <div class="py-3 fixed-width">
+                        <h5>Search for a City:</h5>
+                         <input type="text" id="city-search" class="form-control searchInput" placeholder="Enter City Name">
+                    </div>
+                     <div class="py-1">
+                        <button type="submit" class="btn btn-primary fixed-width" id="fetch-button">Search</button>
+                    </div>
                 </div>
-                <div class="py-1">
-                    <button type="submit" class="btn btn-primary fixed-width" id="fetch-button">Search</button>
-                </div>
-                </form>
-                <!-- Form for input and search button -->
+                <!-- Div for input and search button -->
 
                 <!-- Separator here -->
                 <hr class="my-separator fixed-width">
@@ -56,38 +56,44 @@
 
             <!-- Div for col-8 -->
             <div class="col-8">
+
                 <!-- Div for today's forecast -->
-                <div>
-                    <p id="daily-forecaset">Daily forecast</p>
+                <div class="card">
+                    <div class="card-body currentCard">
+                        <!-- Forecast items will be appended here -->
+                    </div>
                 </div>
                 <!-- Div for today's forecast -->
 
                 <!-- Div for the 5-day forecast -->
-                <div>
-                    <p id="weekly-forecast">5-Day Forecast</p>
-                </div>    
-                <!-- Div for the 5-day forecast -->
+                <div class="card">
+                    <div class="card-body fiveDayCard">
+                        <h5 class="fiveDayTitle" id="fiveDayForecastTitle" style="display: none;">5 Day Forecast</h5> 
+                        <div class="fiveDayForecast">
+                        <!-- Forecast items will be appended here -->
+                        </div>
+                    </div>
+                </div>
+                <!-- End Div for the 5-day forecast -->
+
+
             </div>
             <!-- Div for col-8 -->
-
 
         </div>
         <!-- Div for row -->
           
-
-        
     </div> 
     <!--Div for input-->
 
     
 
-            
-
-    
-
-
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
-    <script src="./assets/js/script.js"></script>
+    <script 
+    src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
+    integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U="
+    crossorigin="anonymous">
+    </script>
+    <script src="./assets/js/two.js"></script>
 </body>
 </html>

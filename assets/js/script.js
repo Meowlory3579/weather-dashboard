@@ -46,11 +46,60 @@ $(document).ready(() => {
 
         }
 
+        getApi();
+
         // clear search field after each search
-        cityInput.val('');
+        // cityInput.val('');
+
+
 
     }); // fetch-button listener end
 
 
+    function getApi() {
+        // var cityName = cityInput.val().trim();
+        var cityName = 'London';
+        console.log(cityName);
+        var apiKey = '24c8e33d23ee0bf6a42fdd1ea9aa5f78';
+        var urlCurrent = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + apiKey;
+        var urlFiveDay = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&appid=" + apiKey;
+
+      
+        fetch(urlCurrent)
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+            console.log(data)
+            // var currentCard = $('.currentCard');
+            // // currentCard.empty();
+            // var currentCity = currentCard.append('<p>');
+            // currentCard.append(currentCity);
+
+
+
+          });
+
+
+
+          fetch(urlFiveDay)
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+            console.log(data)
+            // do stuff with the results
+          });
+
+
+
+    }; // getApi end
+
+ 
 
 }); // Document ready end
+
+
+
+
+
