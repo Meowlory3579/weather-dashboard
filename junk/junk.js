@@ -113,7 +113,7 @@ $(document).ready(() => {
         }; // if / else end
     
         // clear search field after each search
-        searchInput.val('');
+        // searchInput.val('');
     
     }); // click function end
     
