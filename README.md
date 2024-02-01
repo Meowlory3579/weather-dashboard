@@ -22,3 +22,4 @@ GIVEN a weather dashboard with form inputs
 https://meowlory3579.github.io/weather-dashboard/
 
 ## Credits
+Reference Documentation: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date
