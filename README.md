@@ -16,10 +16,10 @@ GIVEN a weather dashboard with form inputs
 * WHEN I click on a city in the search history, THEN I am again presented with current and future conditions for that city.   
 
 ## The following video demonstrates the web application's appearance and functionality
-![Webpage titled "Weather Dashboard" featuring...](https://github.com/Meowlory3579/work-day-scheduler/blob/main/assets/images/weather-dashboard-functionality.gif)
+![Webpage titled "Weather Dashboard" featuring a field for the user to enter a city name and a list of previously searched for cities, if applicable. After user enters a city name and clicks "Search" or selects from list, the current weather and well as a multi-day forecast will be returned.](https://github.com/Meowlory3579/work-day-scheduler/blob/main/assets/images/weather-dashboard-functionality.gif)
 
 ## Link to Deployed Application
 https://meowlory3579.github.io/weather-dashboard/
 
 ## Credits
-Reference Documentation: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date
+Reference Documentation: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date | https://getbootstrap.com/docs/5.3/getting-started/introduction/
