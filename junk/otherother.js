@@ -1,7 +1,6 @@
 // jQuery ready function to ensure the code runs after the DOM has fully loaded
 $(document).ready(() => {
     var formattedDate;
-    var searchInput = '';
 
     // function to dynamically update the city list / search history
     function updateCityList() {
@@ -9,7 +8,7 @@ $(document).ready(() => {
 
         // Get any search input that was saved in localStorage
         var storedCities = JSON.parse(localStorage.getItem('allItems')) || [];
-        cityList.empty(); // Clear existing list so it's dynamically built
+        cityList.empty(); // Clear existing list
 
         // for each user entry and stored city, create a button and append list to HTML
         storedCities.forEach(function(item) {
@@ -21,22 +20,21 @@ $(document).ready(() => {
     // Initial update of city list
     updateCityList();
 
-    // listen for clicks on buttons in search history. If clicked, capture the button text, and initialize performSearch function
+    var searchInput = '';
+
     $(document).on('click', '.city-button', function() {
         // find the button that triggered the event
         var button = $(this);
-        // then find and store the text within the button
+        // then find the text within the button
         searchInput = button.text();
         console.log("button: " + searchInput);
-        // initialize performSearch function
         performSearch(); 
     });
 
-    // listen for click on search button. If clicked, capture user input and store with other searched, if applicable
+
     $('#fetch-button').on('click', function() {
         searchInput = $("#city-search").val().trim();
 
-        // store user input in object
         if (searchInput !== '') {
             var newCityItem = {
                 city: searchInput
@@ -62,19 +60,20 @@ $(document).ready(() => {
 
         }
 
-        // initialize performSearch function
+        console.log("City input: " + searchInput);
         performSearch(); 
     });
 
-
-    // 5 day weather results are in 3-hour segments, so there are 8 results per 24 hours. The below function determines which results from API response to pass to urlFiveDay
+    // Figure out the indices that are going to be passed to urlFiveDay
     function findAndStoreIndices(dataSet, formattedDate) {
         var startIndex = -1;
     
         // Find the index of the first non-matching date
         for (var i = 0; i < dataSet.length; i++) {
             var itemDate = new Date(dataSet[i].dt_txt);
-            var itemFormattedDate = (itemDate.getMonth() + 1) + '/' + itemDate.getDate() + '/' + itemDate.getFullYear(); // getMonth returns month from 0-11, so must add 1
+            var itemFormattedDate = (itemDate.getMonth() + 1) + '/' + itemDate.getDate() + '/' + itemDate.getFullYear();
+
+            console.log("My formatted date is" + formattedDate)
     
             if (itemFormattedDate !== formattedDate) {
                 startIndex = i;
@@ -82,7 +81,7 @@ $(document).ready(() => {
             }
         }
     
-        // If a non-matching date is found, create an array of indices that increments by 8 to account for 8 results per 24-hour period for a total of 5 times to comprise the 5 day forecast
+        // If a non-matching date is found, create the array of indices
         var indicesArray = [];
         if (startIndex !== -1) {
             for (var j = 0; j < 5; j++) {
@@ -93,16 +92,16 @@ $(document).ready(() => {
         return indicesArray;
     };
     
-    // function to send and receive API calls / responses and append desired results to HTML
+
     function performSearch() {
         var apiKey = '24c8e33d23ee0bf6a42fdd1ea9aa5f78';
 
         if (searchInput !== '') {
-            // Clear existing content from the relevant elements after each search
+            // Clear existing content from the relevant elements
             $('.currentCard').empty();
             $('.fiveDayForecast').empty();
 
-            // Dynamically build request URLs based on user search input or history selection
+            // Dynamically build request URLs based on user search input
             var urlCurrent = "https://api.openweathermap.org/data/2.5/weather?q=" + searchInput + "&appid=" + apiKey + "&units=imperial";
             var urlFiveDay = "https://api.openweathermap.org/data/2.5/forecast?q=" + searchInput + "&appid=" + apiKey + "&units=imperial";
             
@@ -115,21 +114,24 @@ $(document).ready(() => {
                     console.log(data);
 
                     // figure out the current date for the city being searched for
+                    // Get the current UTC date
                     var currentUtcDate = new Date();
                     // Get the UTC timezone from the response
                     var utcTimezone = data.timezone;
-                    // UTC offset in milliseconds
+
+                    // UTC offset in milliseconds (3600 seconds = 1 hour)
                     var utcOffsetMilliseconds = utcTimezone * 1000;
+
                     // Add the UTC offset to the current UTC date
                     var localDate = new Date(currentUtcDate.getTime() + utcOffsetMilliseconds);
-                    // separate into month, day, year for desired formatting
-                    // var month = localDate.getUTCMonth() + 1; // returns month from 0-11, so must add 1
-                    // var day = localDate.getUTCDate();
-                    // var year = localDate.getUTCFullYear();
-                    // formattedDate = month + '/' + day + '/' + year;
-                    formattedDate = (localDate.getUTCMonth() + 1) + '/' + localDate.getUTCDate() + '/' + localDate.getUTCFullYear(); // getUTCMonth returns month from 0-11, so must add 1
-                    console.log("Local Date: " + formattedDate);
 
+                    // separate into month, day, year for desired formatting
+                    var month = localDate.getUTCMonth() + 1; // returns month from 0-11, so must add 1
+                    var day = localDate.getUTCDate();
+                    var year = localDate.getUTCFullYear();
+
+                    var formattedDate = month + '/' + day + '/' + year;
+                    console.log("Local Date: " + formattedDate);
                     
                     // append returned data into currentCard section
                     var currentCard = $('.currentCard');
@@ -137,50 +139,64 @@ $(document).ready(() => {
                             "<div class='something'>" + 
                             "<h4>" + data.name + "</h4>" +
                             "<p>" + formattedDate + "</p>" + 
-                            `<img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png">` + 
+                             `<img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png">` + 
                             "<p>" + data.weather[0].description + "</p>" +
-                            "<p>" + "Temperature: " + data.main.temp  + " &deg;F</p>" + 
+                             "<p>" + "Temperature: " + data.main.temp  + " &deg;F</p>" + 
                             "<p>" + "Wind Speed: " + data.wind.speed + " MPH</p>" + 
                             "<p>" + "Humidity: " + data.main.humidity + "%" + "</p>" + 
                             "</div>"
                         );
 
-                    return fetch(urlFiveDay);  // request for 5 day weather info. Nesting fetches to ensure urlFiveDay runs after urlCurrent b/c I need formattedDate from urlCurrent
+                    return fetch(urlFiveDay);      
 
-                }) // urlCurrent end
+                }); // urlCurrent end
 
-                // process 5 day weather response
+
+            // request for 5 day weather info
+            fetch(urlFiveDay)
                 .then(function (response) {
                     return response.json();
                 })
                 .then(function (data) {
                     console.log(data);
-                    console.log("Formatted Date as appears in 5 day: " + formattedDate)
+
+                    console.log("What is the formatted date here: " + formattedDate)
     
                     // show '5 Day Forecast' string in HTML once response is returned
                     $('#fiveDayForecastTitle').show();
 
-                    // Call to findAndStoreIndices to find indices
+                    // Call to the function to find indices
                     if (formattedDate) {
                         var indices = findAndStoreIndices(data.list, formattedDate);
                         console.log("Indices: ", indices);    
-                    }    
 
-                    // for each day (determined by index stored in 'indices'), dynamically append returned data into fiveDayForecast section
+                        // Use the indices to process specific objects in data.list
+                        indices.forEach(function(index) {
+                            if (index < data.list.length) {
+                             var forecastItem = data.list[index];
+                                console.log("Forecast Item at Index " + index + ": ", forecastItem);
+                            }
+                        });
+                    }    
+                    
+    
+                    // 5 day weather results are in 3-hour blocks, so there are 8 results per 24 hours. If you only access values listed in 'day' variable, that'll give you the info for 5 separate / unique days. 
+                    // var dayIndex = [7, 15, 23, 31, 39];
+                    var dayIndex = [0, 8, 16, 24, 32];
+
+                    // for each day (item), dynamically append returned data into fiveDayForecast section
                     var fiveDayForecast = $('.fiveDayForecast');
-                    indices.forEach(function(item) {
+                    dayIndex.forEach(function(item) {
 
                         // figure out the next five dates for the city being searched for
                         // Get the date string from the response
                         var getFiveDayDate = new Date(data.list[item].dt_txt);
-                        // var fiveDayMonth = getFiveDayDate.getMonth() + 1; 
-                        // var fiveDayDay = getFiveDayDate.getDate();
-                        // var fiveDayYear = getFiveDayDate.getFullYear();
-                        // var fiveDayFormattedDate = fiveDayMonth + '/' + fiveDayDay + '/' + fiveDayYear;
-                        var fiveDayFormattedDate = (getFiveDayDate.getMonth() + 1) + '/' + getFiveDayDate.getDate() + '/' + getFiveDayDate.getFullYear(); // getUTCMonth returns month from 0-11, so must add 1
+                        var fiveDayMonth = getFiveDayDate.getMonth() + 1; 
+                        var fiveDayDay = getFiveDayDate.getDate();
+                        var fiveDayYear = getFiveDayDate.getFullYear();
+                        var fiveDayFormattedDate = fiveDayMonth + '/' + fiveDayDay + '/' + fiveDayYear;
                         console.log("Local Next 5 Dates: " + fiveDayFormattedDate);
 
-                        // append returned data into fiveDayForecast section
                         fiveDayForecast.append(
                         "<div class='fiveDayColor'>" +
                         "<p>" + fiveDayFormattedDate + "</p>" + 
@@ -195,12 +211,14 @@ $(document).ready(() => {
                 }); // urlFiveDay end
 
 
+
         }; // searchInput !== '' end
     
+
     
     }; // performSearch end
     
     
-}); // Document ready end
+    }); // Document ready end
     
     

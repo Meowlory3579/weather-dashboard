@@ -22,15 +22,16 @@
     </header>  
     <!-- End: Header -->
 
-    <!--Div for input-->
+    <!-- Begin: Div for main container -->
     <div class="container">
 
-        <!-- Div for row -->
+        <!-- Begin: Div for row formatting -->
         <div class="row">
 
-            <!-- Div for col-4 -->
-            <div class="col-4">
-                <!-- Div for input and search button -->
+            <!-- Begin: Search input and list of stored cities -->
+            <!-- Begin: Div for bootstrap column formatting - col-4 -->
+            <div class="col-md-4 col-12">
+                <!-- Begin: Div for input and search button -->
                 <div id="search-form">
                     <div class="py-3 fixed-width">
                         <h5>Search for a City:</h5>
@@ -40,55 +41,54 @@
                         <button type="submit" class="btn btn-primary fetch-button fixed-width" id="fetch-button">Search</button>
                     </div>
                 </div>
-                <!-- Div for input and search button -->
+                <!-- End: Div for input and search button -->
 
-                <!-- Separator between search input and results -->
+                <!-- Separator between search input and stored results -->
                 <hr class="my-separator fixed-width">
 
-                <!-- Div for ul -->
+                <!-- Begin: Div for ul of stored cities -->
                 <div class="py-3">
                     <ul class="list-group fixed-width" id="city-list"></ul>
                 </div>
-                <!-- Div for ul -->
+                <!-- End: Div for ul of stored cities -->
             </div>   
-            <!-- Div for col-4 -->
+            <!-- End: Div for bootstrap column formatting - col-4 -->
+            <!-- End: Search input and list of stored cities -->
 
 
-            <!-- Div for col-8 -->
-            <div class="col-8">
-
-                <!-- Div for today's forecast -->
-                <div class="card">
+            <!-- Begin: Returned Current and 5-day forecasts -->
+            <!-- Begin: Div for bootstrap column formatting - col-8 -->
+            <div class="col-md-8 col-12">
+                <!-- Begin: Div for current forecast -->
+                <div class="card hidden-border">
                     <div class="card-body currentCard">
                         <!-- Forecast items will be appended here -->
                     </div>
                 </div>
-                <!-- Div for today's forecast -->
+                <!-- End: Div for current forecast -->
 
-                <!-- Div for the 5-day forecast -->
-                <div class="card">
+                <!-- Begin: Div for the 5-day forecast -->
+                <div class="card hidden-border">
                     <div class="card-body fiveDayCard">
-                        <h5 class="fiveDayTitle" id="fiveDayForecastTitle" style="display: none;">5 Day Forecast</h5> 
-                        <div class="fiveDayForecast">
+                        <!-- Forecast title will be appended below -->
+                        <h5 class="fiveDayTitle" id="fiveDayForecastTitle"></h5> 
+                        <div class="fiveDayForecast row">
                         <!-- Forecast items will be appended here -->
                         </div>
                     </div>
                 </div>
-                <!-- End Div for the 5-day forecast -->
-
-
+                <!-- End: Div for the 5-day forecast -->
             </div>
-            <!-- Div for col-8 -->
+            <!-- End: Div for bootstrap column formatting - col-8 -->
+            <!-- Begin: Returned Current and 5-day forecasts -->
 
         </div>
-        <!-- Div for row -->
+        <!-- End: Div for row formatting -->
           
     </div> 
-    <!--Div for input-->
-
-    
+    <!-- End: Div for main container -->
 
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="./assets/js/5day.js"></script>
+    <script src="./assets/js/script.js"></script>
 </body>
 </html>

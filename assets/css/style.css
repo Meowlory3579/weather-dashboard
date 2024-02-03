@@ -2,22 +2,29 @@
     font-size: 13px;
 }
 
-.fixed-width {
-    width: 300px;
+/* Begin: Search input and list of stored cities */
+ .fixed-width {
+    width: 100%;
 }
 
-.fixed-width .list-group-item {
+.list-group-item {
     width: 100%;
     background-color: lightgray;
     margin: 5px;
     text-align: center;
-}
+} 
 
 .my-separator {
     border: none;
     height: 5px; 
     background-color: black; 
     margin: 20px 0; 
+}
+/* End: Search input and list of stored cities */
+
+/* Begin: Returned Current and 5-day forecasts */
+.hidden-border {
+    border: 0 !important; /* This will override Bootstrap's styles */
 }
 
 .currentCard {
@@ -30,15 +37,9 @@
     margin-bottom: 10px; 
 }
 
-
-.fiveDayForecast {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.fiveDayColor {
+.fiveDayCard {
     flex: 1;
     text-align: center; 
     padding: 10px; 
 }
+/* End: Returned Current and 5-day forecasts */
