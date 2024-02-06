@@ -2,6 +2,13 @@
     font-size: 13px;
 }
 
+/* Begin: Header */
+header {
+    background-image: linear-gradient(to right, rgb(85, 143, 143), #feb47b);
+}
+/* End: Header */
+
+
 /* Begin: Search input and list of stored cities */
  .fixed-width {
     width: 100%;
@@ -22,6 +29,7 @@
 }
 /* End: Search input and list of stored cities */
 
+
 /* Begin: Returned Current and 5-day forecasts */
 .hidden-border {
     border: 0 !important; /* This will override Bootstrap's styles */
@@ -37,7 +45,7 @@
     margin-bottom: 10px; 
 }
 
-.fiveDayCard {
+.fiveDayIndivCard {
     flex: 1;
     text-align: center; 
     padding: 10px; 

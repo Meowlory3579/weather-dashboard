@@ -8,11 +8,11 @@ $(document).ready(() => {
         var cityList = $('#city-list');
 
         // Get any search input that was saved in localStorage
-        var storedCities = JSON.parse(localStorage.getItem('allItems')) || [];
+        var setStoredItems = JSON.parse(localStorage.getItem('allItems')) || [];
         cityList.empty(); // Clear existing list so it's dynamically built
 
         // For each user entry and stored city, create a button and append list to HTML
-        storedCities.forEach(function(item) {
+        setStoredItems.forEach(function(item) {
             var buttonEl = $('<button>').addClass('btn list-group-item city-button').text(item.city);
             cityList.append(buttonEl);
         });
@@ -100,7 +100,7 @@ $(document).ready(() => {
     
     // Send and receive API calls / responses and append desired results to HTML
     function performSearch() {
-        var apiKey = '24c8e33d23ee0bf6a42fdd1ea9aa5f78';
+        var apiKey = '24c8e33d23ee0bf6a42fdd1ea9aa5f78'; 
 
         if (searchInput !== '') {
             // Clear existing content from the relevant elements after each search
@@ -186,7 +186,7 @@ $(document).ready(() => {
 
                         // Append returned data into fiveDayForecast section
                         fiveDayForecast.append(
-                        "<div class='fiveDayCard'>" +
+                        "<div class='fiveDayIndivCard'>" +
                         "<p>" + fiveDayFormattedDate + "</p>" + 
                         `<img src="https://openweathermap.org/img/wn/${data.list[item].weather[0].icon}@2x.png">` + 
                         "<p>" + data.list[item].weather[0].description + "</p>" +
